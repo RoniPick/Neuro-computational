@@ -46,3 +46,40 @@ if __name__ == '__main__':
     letter_bet = np.array(letter_bet)
     letter_lamed = np.array(letter_lamed)
 
+    # Combine labels and letters for "bet" and "mem" categories
+    labels_combined = np.concatenate((label_bet, label_mem))
+    letters_combined = np.concatenate((letter_bet, letter_mem))
+
+    # Shuffle the data
+    combined_data = np.column_stack((labels_combined, letters_combined))
+    np.random.shuffle(combined_data)
+
+    # Split the shuffled data back into labels and letters
+    shuffled_labels = combined_data[:, 0]
+    shuffled_letters = combined_data[:, 1:]
+
+    # Split data into training and test sets
+    train_ratio = 0.8  # Percentage of data for training
+    split_index = int(train_ratio * len(shuffled_labels))
+
+    X_train = shuffled_letters[:split_index]
+    y_train = shuffled_labels[:split_index]
+
+    X_test = shuffled_letters[split_index:]
+    y_test = shuffled_labels[split_index:]
+
+    # X_train = shuffled_letters  # the training data
+    # y_train = shuffled_labels  # the training labels
+
+    # X_test = ...  # Your test data
+    # y_test = ...  # Your test labels
+
+    # step 2 - create the adaline classifier
+    adaline = Adaline()
+    adaline.fit(X_train, y_train)
+
+    train_accuracy = adaline.accuracy(X_train, y_train)
+    test_accuracy = adaline.accuracy(X_test, y_test)
+
+    print("Train Accuracy:", train_accuracy)
+    print("Test Accuracy:", test_accuracy)
