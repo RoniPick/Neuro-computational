@@ -1,54 +1,31 @@
 import numpy as np
-import random
 
 
 class Adaline:
-    def __init__(self, learning_rate=0.1, epochs=1000):
-        self.errors = []
-        self.weights = []
+    def __init__(self, learning_rate=0.001, epochs=100):
         self.learning_rate = learning_rate
         self.epochs = epochs
+        self.w = None
+        self.cost = None
 
     def fit(self, X, y):
-        n_features = X.shape[1]
-        self.weights = np.random.rand(n_features + 1)
-        self.errors = []
-        for epoch in range(self.epochs):
-            activation = self.activation(np.dot(X, self.weights[1:]) + self.weights[0])
-            errors = y - activation
-            self.weights[0] += self.learning_rate * errors.sum()
-            self.weights[1:] += self.learning_rate * np.dot(X.T, errors)
-            self.errors.append(errors.sum())
+        # Initialize the weights
+        self.w = np.zeros(X.shape[1] + 1)  # +1 for the bias term
+        self.cost = []
 
-    def activation(self, X):
-        return X
+        # Train the model
+        for epoch in range(self.epochs):
+            y_pred = self.predict(X)  # make predictions
+            error = y - y_pred  # compute the error
+            self.w[1:] += self.learning_rate * X.T.dot(error)  # update the weights
+            self.w[0] += self.learning_rate * error.sum()  # update the bias term
+
+            # calculating cost
+            cost = (error ** 2).sum() / 2.0
+            self.cost.append(cost)
+        return self
 
     def predict(self, X):
-        return np.where(self.activation(np.dot(X, self.weights[1:]) + self.weights[0]) >= 0, 1, -1)
-
-    def accuracy(self, X, y):
-        predictions = self.predict(X)
-        correct = np.sum(predictions == y)
-        return correct / len(y)
-
-    # def fit(self, X, y, tolerance=1e-4):
-    #     n_features = X.shape[1]
-    #     self.weights = np.random.rand(n_features + 1).astype(float)
-    #     prev_error = np.inf
-    #
-    #     for epoch in range(self.epochs):
-    #         error_sum = 0.0
-    #         for i in range(len(X)):
-    #             activation = self.activation(
-    #                 np.dot(self.weights[1:].astype(float), X[i]).astype(float) + self.weights[0].astype(float))
-    #             errors = y[i] - activation
-    #             self.weights[0] += self.learning_rate * errors
-    #             self.weights[1:] += self.learning_rate * X[i] * errors
-    #             error_sum += errors ** 2
-    #
-    #         self.errors.append(error_sum)
-    #
-    #         if abs(prev_error - error_sum) < tolerance:
-    #             break
-    #
-    #         prev_error = error_sum
+        z = X.dot(self.w[1:]) + self.w[0]  # compute the net input
+        y_pred = np.where(z >= 0, 1, -1)  # apply the activation function
+        return y_pred
