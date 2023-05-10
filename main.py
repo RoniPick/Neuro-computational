@@ -29,6 +29,7 @@ if __name__ == '__main__':
 
                     line = line.split(',')
 
+                    # checking if the first element is in our range, is fo - append the letter's label to their category
                     if line[0] in ['1', '2', '3']:
                         if line[0] == '1':
                             label_bet.append(1)
@@ -40,18 +41,8 @@ if __name__ == '__main__':
                             label_mem.append(3)
                             letter_mem.append(line[1:])
 
-                        # else:
-                        #     print("The file does not meet the specified conditions.")
-
-    np.array(letter_mem)
-            # np.array(label_mem)
-    np.array(letter_bet)
-            # np.array(label_bet)
-    np.array(letter_lamed)
-            # np.array(label_lamed)
-
-    # creating the dataset
-
-
-    # createDataSet(file)
+    # Convert the letters list to a NumPy array
+    letter_mem = np.array(letter_mem)
+    letter_bet = np.array(letter_bet)
+    letter_lamed = np.array(letter_lamed)
 
