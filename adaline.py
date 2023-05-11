@@ -9,11 +9,11 @@ class Adaline:
         self.cost = None
 
     def fit(self, X, y):
-        # Initialize the weights
+        # initialize the weights
         self.w = np.zeros(X.shape[1] + 1)  # +1 for the bias term
         self.cost = []
 
-        # Train the model
+        # train the model
         for epoch in range(self.epochs):
             y_pred = self.predict(X)  # make predictions
             error = y - y_pred  # compute the error

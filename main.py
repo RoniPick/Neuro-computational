@@ -1,12 +1,11 @@
+import os
 
 from create_dataset import createDataSet
 from pre_proccesing import training
 
 if __name__ == '__main__':
 
-    directory = '/Users/ronipick/PycharmProjects/nuiro1/data'
-
-    # creating the dataset
+    # creating the dataset arrays
     label_mem = []
     letter_mem = []
     label_bet = []
@@ -14,7 +13,7 @@ if __name__ == '__main__':
     label_lamed = []
     letter_lamed = []
 
-    label_bet, label_lamed, label_mem, letter_bet, letter_lamed, letter_mem = createDataSet(directory, label_bet,
+    label_bet, label_lamed, label_mem, letter_bet, letter_lamed, letter_mem = createDataSet("dataset.txt", label_bet,
                                                                                             label_lamed, label_mem,
                                                                                             letter_bet, letter_lamed,
                                                                                             letter_mem)
