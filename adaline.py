@@ -2,7 +2,7 @@ import numpy as np
 
 
 class Adaline:
-    def __init__(self, learning_rate=0.001, epochs=100):
+    def __init__(self, learning_rate=0.001, epochs=600):
         self.learning_rate = learning_rate
         self.epochs = epochs
         self.w = None
