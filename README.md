@@ -3,4 +3,5 @@
 <br>
 <br>Part 2 - Adaline, Build a classifier using the Adaline algorithm which classifies letters. We had to encode a classifier that is trained on 80% of the data and tested on the remaining 20%. We should have done this 5 times, so all the data is used for training and testing.
 Classify “mem” versus “bet”, classify “lamed” versus “bet”, and classify “lamed” versus “mem”. 
-
+<br>
+<br>Part 3 - Feed forward, replace the Adaline with a feed forward neural network. Repeat the classifications from earlier parts.
